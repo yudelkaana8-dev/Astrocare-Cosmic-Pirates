@@ -1,0 +1,1015 @@
+/* ==========================================================================
+   AstroCare Mission Health · Hoja de estilos
+   Tema: espacio profundo con acento violeta
+   Secciones:
+     1. Variables y base
+     2. Fondo cósmico
+     3. Barra lateral
+     4. Contenido principal y paneles
+     5. Monitor: indicadores y gráfica
+     6. Monitor: observaciones y formulario
+     7. Recovery
+     8. Formularios y botones
+     9. Aviso emergente
+    10. Responsive y accesibilidad
+   ========================================================================== */
+
+
+/* ---------- 1. Variables y base ---------- */
+
+:root {
+  /* Fondos */
+  --bg: #0b0716;
+  --bg-side: #110a24;
+  --panel: #160f2e;
+  --panel-hover: #1f1640;
+
+  /* Líneas y texto */
+  --line: #2c2250;
+  --text: #ece8f8;
+  --muted: #9b92bd;
+
+  /* Acento violeta */
+  --accent: #a78bfa;
+  --accent-strong: #8b5cf6;
+  --accent-soft: #261b4d;
+  --accent-light: #c4b5fd;
+
+  /* Estados (se mantienen distinguibles del acento) */
+  --ok: #5eead4;
+  --warn: #fbbf24;
+  --alert: #fb7185;
+
+  /* Tipografía */
+  --font: "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+  --mono: ui-monospace, "Cascadia Mono", Consolas, monospace;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+body {
+  display: grid;
+  grid-template-columns: 250px 1fr;
+  min-height: 100vh;
+  font: 14px/1.5 var(--font);
+  color: var(--text);
+  background-color: var(--bg);
+}
+
+h1 {
+  font-size: 26px;
+  font-weight: 600;
+}
+
+h2 {
+  margin-bottom: 12px;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+h3 {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.mut {
+  color: var(--muted);
+}
+
+.foot {
+  margin-top: 10px;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+
+/* ---------- 2. Fondo cósmico ----------
+   Estrellas hechas con gradientes pequeños y dos nebulosas suaves.
+   Todo es CSS, no se carga ninguna imagen. */
+
+body {
+  background-image:
+    /* Nebulosas */
+    radial-gradient(ellipse 60% 45% at 85% 0%, rgba(139, 92, 246, 0.16), transparent 70%),
+    radial-gradient(ellipse 50% 40% at 10% 100%, rgba(99, 60, 200, 0.14), transparent 70%),
+    /* Estrellas (dos capas con tamaños distintos) */
+    radial-gradient(1px 1px at 30px 40px, rgba(255, 255, 255, 0.55), transparent),
+    radial-gradient(1px 1px at 120px 90px, rgba(196, 181, 253, 0.5), transparent),
+    radial-gradient(1.5px 1.5px at 200px 160px, rgba(255, 255, 255, 0.4), transparent),
+    radial-gradient(1px 1px at 80px 190px, rgba(255, 255, 255, 0.35), transparent);
+  background-size:
+    100% 100%,
+    100% 100%,
+    240px 240px,
+    190px 190px,
+    300px 300px,
+    260px 260px;
+  background-attachment: fixed;
+}
+
+
+/* ---------- 3. Barra lateral ---------- */
+
+.side {
+  position: sticky;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  height: 100vh;
+  padding: 20px 16px;
+  overflow: auto;
+  background: var(--bg-side);
+  border-right: 1px solid var(--line);
+}
+
+/* Marca */
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.brand b {
+  display: block;
+  font-size: 17px;
+  letter-spacing: 0.2px;
+}
+
+.brand span {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+/* Navegación entre paneles */
+nav {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  text-align: left;
+  color: var(--muted);
+  border: 0;
+  border-left: 2px solid transparent;
+  border-radius: 0 4px 4px 0;
+}
+
+.nav svg {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+}
+
+.nav.on {
+  color: var(--text);
+  background: var(--accent-soft);
+  border-left-color: var(--accent);
+}
+
+/* Perfil del astronauta */
+.prof {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 0;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+
+.prof b {
+  display: block;
+}
+
+.prof span {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.avatar {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  font-size: 13px;
+  font-weight: 600;
+  background: var(--accent-soft);
+  border: 1px solid var(--accent);
+  border-radius: 50%;
+}
+
+/* Datos de la misión */
+.mission dt {
+  margin-top: 8px;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.mission dd {
+  font-family: var(--mono);
+  font-size: 13px;
+}
+
+/* Indicador de conectividad */
+.conn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+}
+
+.conn i {
+  width: 9px;
+  height: 9px;
+  background: var(--ok);
+  border-radius: 50%;
+}
+
+.conn b {
+  display: block;
+  font-size: 13px;
+}
+
+.conn span {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.conn.off {
+  border-color: var(--warn);
+}
+
+.conn.off i {
+  background: var(--warn);
+}
+
+/* Acciones al final de la barra */
+.tools {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: auto;
+}
+
+.ghost {
+  color: var(--muted);
+}
+
+.team {
+  font-size: 11px;
+  color: var(--muted);
+}
+
+
+/* ---------- 4. Contenido principal y paneles ---------- */
+
+main {
+  min-width: 0;
+  padding: 0 28px 40px;
+}
+
+/* Aviso permanente de prototipo */
+.demo {
+  margin: 0 -28px 22px;
+  padding: 7px 28px;
+  font-size: 12.5px;
+  color: var(--warn);
+  background: #2a2010;
+  border-bottom: 1px solid #4a3a14;
+}
+
+.ph {
+  margin-bottom: 18px;
+}
+
+.ph p {
+  max-width: 70ch;
+  color: var(--muted);
+}
+
+.panel {
+  min-width: 0;
+  margin-bottom: 18px;
+  padding: 18px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+}
+
+/* Rejillas de dos y tres columnas */
+.grid2 {
+  display: grid;
+  grid-template-columns: minmax(360px, 0.9fr) 1.3fr;
+  gap: 18px;
+}
+
+.grid2 .panel {
+  margin-bottom: 18px;
+}
+
+.obsg {
+  grid-template-columns: 1fr 1fr;
+}
+
+.grid3 {
+  display: grid;
+  grid-template-columns: 1fr 280px;
+  gap: 18px;
+  align-items: start;
+}
+
+
+/* ---------- 5. Monitor: indicadores y gráfica ---------- */
+
+/* Lista de indicadores */
+.rows {
+  display: flex;
+  flex-direction: column;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 1fr 70px 70px;
+  grid-template-areas:
+    "l s v"
+    "c c c";
+  gap: 6px 10px;
+  align-items: center;
+  padding: 11px 8px;
+  text-align: left;
+  border: 0;
+  border-bottom: 1px solid var(--line);
+  border-radius: 0;
+}
+
+.row:last-child {
+  border-bottom: 0;
+}
+
+.row:hover {
+  background: var(--panel-hover);
+}
+
+.row.sel {
+  background: var(--accent-soft);
+  box-shadow: inset 2px 0 var(--accent);
+}
+
+.rl {
+  grid-area: l;
+}
+
+.rl b {
+  display: block;
+  font-weight: 500;
+}
+
+.rl small,
+.rv small {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.rv {
+  grid-area: v;
+  text-align: right;
+  font-family: var(--mono);
+}
+
+.rv b {
+  display: block;
+  font-size: 16px;
+}
+
+.rs {
+  grid-area: c;
+}
+
+/* Mini gráfica de cada fila */
+.spark {
+  grid-area: s;
+  width: 70px;
+  height: 24px;
+  fill: none;
+  stroke-width: 1.6;
+}
+
+.spark.ok {
+  stroke: var(--ok);
+}
+
+.spark.warn {
+  stroke: var(--warn);
+}
+
+.spark.alert {
+  stroke: var(--alert);
+}
+
+/* Etiquetas de estado */
+.chip {
+  display: inline-block;
+  padding: 1px 8px;
+  font-size: 11.5px;
+  border: 1px solid;
+  border-radius: 10px;
+}
+
+.chip.ok {
+  color: var(--ok);
+  border-color: #1f5f66;
+}
+
+.chip.warn {
+  color: var(--warn);
+  border-color: #6a5420;
+}
+
+.chip.alert {
+  color: var(--alert);
+  border-color: #7a3548;
+}
+
+/* Cabecera de la gráfica y selector de período */
+.ch-h {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.seg {
+  display: flex;
+}
+
+.seg button {
+  padding: 4px 12px;
+  border-radius: 0;
+}
+
+.seg button:first-child {
+  border-radius: 4px 0 0 4px;
+}
+
+.seg button:last-child {
+  border-left: 0;
+  border-radius: 0 4px 4px 0;
+}
+
+.seg .on {
+  background: var(--accent-soft);
+  border-color: var(--accent);
+}
+
+/* Indicador de modo en vivo */
+.ch-t {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+}
+
+.livebadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: var(--accent-light);
+}
+
+.livebadge i {
+  width: 8px;
+  height: 8px;
+  background: var(--alert);
+  border-radius: 50%;
+  animation: blink 1.2s infinite;
+}
+
+@keyframes blink {
+  50% { opacity: 0.25; }
+}
+
+/* Último punto de la gráfica en vivo */
+.lv .pt.last {
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  50% { stroke: var(--accent-light); stroke-width: 5; }
+}
+
+/* Cifras resumen */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin: 6px 0 10px;
+}
+
+.stats dt {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.stats dd {
+  font-family: var(--mono);
+  font-size: 18px;
+}
+
+.stats small {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+/* Gráfica SVG */
+.chw {
+  position: relative;
+}
+
+#ch {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.grid {
+  stroke: var(--line);
+}
+
+.ax {
+  font-size: 11px;
+  fill: var(--muted);
+}
+
+.ax.acc {
+  fill: var(--accent);
+}
+
+.base {
+  stroke: var(--accent);
+  stroke-dasharray: 5 4;
+  opacity: 0.8;
+}
+
+.ln {
+  fill: none;
+  stroke: var(--accent-light);
+  stroke-width: 2;
+}
+
+.pt {
+  stroke: var(--panel);
+  stroke-width: 1.5;
+}
+
+.pt.ok {
+  fill: var(--ok);
+}
+
+.pt.warn {
+  fill: var(--warn);
+}
+
+.pt.alert {
+  fill: var(--alert);
+}
+
+.guide {
+  stroke: var(--muted);
+  stroke-dasharray: 2 3;
+  opacity: 0;
+}
+
+/* Globo de información al pasar el cursor */
+.tip {
+  position: absolute;
+  top: 6px;
+  padding: 6px 10px;
+  font-size: 12.5px;
+  white-space: nowrap;
+  background: #0d0820;
+  border: 1px solid var(--accent);
+  border-radius: 4px;
+  opacity: 0;
+  transform: translateX(-50%);
+  pointer-events: none;
+  transition: opacity 0.12s;
+}
+
+.tip b {
+  display: block;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.tip span {
+  color: var(--muted);
+}
+
+
+/* ---------- 6. Monitor: observaciones y formulario ---------- */
+
+.obs {
+  margin-bottom: 16px;
+  padding: 4px 0 4px 12px;
+  border-left: 3px solid;
+}
+
+.obs.warn {
+  border-color: var(--warn);
+}
+
+.obs.alert {
+  border-color: var(--alert);
+}
+
+.obs header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 4px;
+}
+
+.obs p {
+  margin-bottom: 4px;
+}
+
+/* Botón con aspecto de enlace */
+.link {
+  padding: 0;
+  text-align: left;
+  color: var(--accent);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  border: 0;
+}
+
+/* Lista de observaciones guardadas */
+.notes {
+  max-height: 220px;
+  padding: 0;
+  overflow: auto;
+  list-style: none;
+}
+
+.notes li {
+  padding: 8px 0;
+  border-top: 1px solid var(--line);
+}
+
+.notes small {
+  color: var(--muted);
+}
+
+
+/* ---------- 7. Recovery ---------- */
+
+/* Aviso de relación con Monitor */
+.rel {
+  margin-bottom: 18px;
+  padding: 12px 16px;
+  background: var(--accent-soft);
+  border: 1px solid var(--accent-strong);
+  border-radius: 6px;
+}
+
+.rel ul {
+  margin-top: 4px;
+  padding-left: 18px;
+}
+
+/* Pestañas de categorías */
+.tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 14px;
+}
+
+.tab {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+}
+
+.tab small {
+  font-family: var(--mono);
+  color: var(--muted);
+}
+
+.tab.on {
+  background: var(--accent-soft);
+  border-color: var(--accent);
+}
+
+/* Punto que marca una categoría relacionada con Monitor */
+.tab i {
+  position: absolute;
+  top: -3px;
+  right: -3px;
+  width: 8px;
+  height: 8px;
+  background: var(--warn);
+  border-radius: 50%;
+}
+
+/* Actividades */
+.act {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 14px 0 14px 14px;
+  border-top: 1px solid var(--line);
+  border-left: 3px solid var(--alert); /* pendiente = rojo */
+}
+
+.act.done {
+  border-left-color: var(--ok); /* completada = verde */
+}
+
+.act p {
+  margin: 2px 0 8px;
+  color: var(--muted);
+}
+
+.act dl {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 6px 20px;
+}
+
+.act dt {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.act dd {
+  font-size: 13px;
+}
+
+.act > button {
+  white-space: nowrap;
+}
+
+.act.pend h3::after {
+  content: " · pendiente";
+  font-weight: 400;
+  color: var(--alert);
+}
+
+.act.done h3::after {
+  content: " · completada";
+  font-weight: 400;
+  color: var(--ok);
+}
+
+/* Colores de cumplimiento reutilizables */
+.s-ok {
+  color: var(--ok);
+}
+
+.s-no {
+  color: var(--alert);
+}
+
+/* Progreso diario */
+.prog .big {
+  font: 600 44px/1 var(--mono);
+  color: var(--alert);
+}
+
+.prog.full .big {
+  color: var(--ok);
+}
+
+.prog .big small {
+  font-size: 20px;
+  color: var(--muted);
+}
+
+.prog h3 {
+  margin-top: 18px;
+}
+
+.bar {
+  height: 6px;
+  margin: 10px 0;
+  background: var(--bg);
+  border-radius: 3px;
+}
+
+.bar i {
+  display: block;
+  height: 100%;
+  background: var(--alert);
+  border-radius: 3px;
+  transition: width 0.3s, background 0.3s;
+}
+
+.prog.full .bar i {
+  background: var(--ok);
+}
+
+/* Historial de cumplimiento */
+.hist {
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+  height: 120px;
+  margin-top: 10px;
+}
+
+.hb {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 2px;
+  height: 100%;
+}
+
+.hb i {
+  width: 100%;
+  min-height: 2px;
+  background: #4a3a8a;
+  border-radius: 2px 2px 0 0;
+}
+
+.hb.today i {
+  background: var(--alert);
+}
+
+.hb.today.full i {
+  background: var(--ok);
+}
+
+.hb b {
+  font: 12px var(--mono);
+}
+
+.hb small {
+  font-size: 11px;
+  color: var(--muted);
+  text-transform: capitalize;
+}
+
+
+/* ---------- 8. Formularios y botones ---------- */
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  padding: 7px 12px;
+  background: none;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button:hover {
+  border-color: var(--accent);
+}
+
+/* Botón principal */
+.pri {
+  font-weight: 600;
+  color: #1a0b3d;
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+.pri:hover {
+  background: var(--accent-light);
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+label {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  font-size: 12.5px;
+  color: var(--muted);
+}
+
+input,
+select,
+textarea {
+  padding: 7px 9px;
+  color: var(--text);
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+}
+
+
+/* ---------- 9. Aviso emergente ---------- */
+
+#toast {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  padding: 9px 14px;
+  background: var(--accent-soft);
+  border: 1px solid var(--accent);
+  border-radius: 4px;
+  opacity: 0;
+  transform: translateY(8px);
+  pointer-events: none;
+  transition: 0.2s;
+}
+
+#toast.on {
+  opacity: 1;
+  transform: none;
+}
+
+
+/* ---------- 10. Responsive y accesibilidad ---------- */
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* Tablet y móvil: la barra lateral pasa a ser una barra superior */
+@media (max-width: 1000px) {
+  body {
+    grid-template-columns: 1fr;
+  }
+
+  .side {
+    position: static;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    height: auto;
+  }
+
+  nav {
+    flex-direction: row;
+  }
+
+  .tools {
+    flex-direction: row;
+    margin: 0 0 0 auto;
+  }
+
+  .mission,
+  .team,
+  .prof span {
+    display: none;
+  }
+
+  main {
+    padding: 0 16px 30px;
+  }
+
+  .demo {
+    margin: 0 -16px 18px;
+    padding: 7px 16px;
+  }
+
+  .grid2,
+  .grid3,
+  .obsg {
+    grid-template-columns: 1fr;
+  }
+
+  .stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Respeta a quien prefiere menos movimiento */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+    animation: none !important;
+  }
+}

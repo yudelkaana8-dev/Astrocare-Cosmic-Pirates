@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AstroCare Mission Health · Prototipo</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<aside class="side">
+  <div class="brand"><svg viewBox="0 0 32 32" width="30" height="30"><circle cx="16" cy="16" r="13" fill="none" stroke="#a78bfa" stroke-width="2"/><path d="M5 20c7-2 15-9 22-10" fill="none" stroke="#e6eef5" stroke-width="2"/><circle cx="16" cy="16" r="3" fill="#a78bfa"/></svg><div><b>AstroCare</b><span>Mission Health</span></div></div>
+  <nav>
+    <button class="nav" data-act="view" data-v="monitor"><svg viewBox="0 0 24 24"><path d="M3 12h4l3-7 4 14 3-7h4"/></svg>Monitor</button>
+    <button class="nav" data-act="view" data-v="recovery"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l3 3 5-6"/></svg>Recovery</button>
+  </nav>
+  <section class="prof"><div class="avatar">AR</div><div><b>Cdte. A. Ríos</b><span>Perfil ficticio · AC-0417</span></div></section>
+  <dl class="mission">
+    <dt>Misión</dt><dd>Tránsito Lunar-Marte (simulada)</dd>
+    <dt>Tiempo de misión</dt><dd id="mday">—</dd>
+    <dt>Hora UTC</dt><dd id="clock">—</dd>
+    <dt>Últimos registros</dt><dd id="lastupd">—</dd>
+  </dl>
+  <div class="conn" id="conn"></div>
+  <div class="tools">
+    <button data-act="export">Exportar informe</button>
+    <button data-act="reset" class="ghost">Restablecer demo</button>
+  </div>
+  <p class="team">Equipo Cosmic Pirates · NASA Space Apps Challenge</p>
+</aside>
+<main>
+  <div class="demo">Prototipo demostrativo: datos ficticios, sin sensores ni dispositivos médicos, sin diagnóstico y sin conexión con la NASA.</div>
+  <div id="view"></div>
+</main>
+<div id="toast" role="status"></div>
+<script src="data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
