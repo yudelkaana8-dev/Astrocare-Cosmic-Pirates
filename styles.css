@@ -7,6 +7,7 @@
      3. Barra lateral
      4. Contenido principal y paneles
      5. Monitor: indicadores y gráfica
+     5b. Monitor: reloj por Bluetooth y mediciones registradas
      6. Monitor: observaciones y formulario
      7. Recovery
      8. Formularios y botones
@@ -36,9 +37,9 @@
   --accent-light: #c4b5fd;
 
   /* Estados (se mantienen distinguibles del acento) */
-  --ok: #5eead4;
-  --warn: #fbbf24;
-  --alert: #fb7185;
+  --ok: #4ade80;
+  --warn: #facc15;
+  --alert: #ef4444;
 
   /* Tipografía */
   --font: "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
@@ -429,17 +430,17 @@ main {
 
 .chip.ok {
   color: var(--ok);
-  border-color: #1f5f66;
+  border-color: #1f6b3a;
 }
 
 .chip.warn {
   color: var(--warn);
-  border-color: #6a5420;
+  border-color: #75650f;
 }
 
 .chip.alert {
   color: var(--alert);
-  border-color: #7a3548;
+  border-color: #8a2a2a;
 }
 
 /* Cabecera de la gráfica y selector de período */
@@ -524,6 +525,18 @@ main {
 .stats dd {
   font-family: var(--mono);
   font-size: 18px;
+}
+
+.stats dd.s-ok {
+  color: var(--ok);
+}
+
+.stats dd.s-warn {
+  color: var(--warn);
+}
+
+.stats dd.s-alert {
+  color: var(--alert);
 }
 
 .stats small {
@@ -613,6 +626,207 @@ main {
 }
 
 .tip span {
+  color: var(--muted);
+}
+
+
+/* ---------- 5b. Monitor: reloj por Bluetooth ---------- */
+
+.watch {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  align-items: center;
+  gap: 20px;
+}
+
+.watch h2 {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 4px;
+}
+
+/* Etiqueta que marca un dato como real */
+.realtag {
+  display: inline-block;
+  font-size: 11.5px;
+  font-weight: 400;
+  color: var(--accent-light);
+}
+
+h2 .realtag {
+  padding: 1px 8px;
+  border: 1px solid var(--accent-strong);
+  border-radius: 10px;
+}
+
+.w-bpm {
+  text-align: center;
+  font-family: var(--mono);
+}
+
+.w-bpm b {
+  display: block;
+  font-size: 36px;
+  line-height: 1;
+  transition: color 0.3s;
+}
+
+.w-bpm .chip {
+  margin-top: 4px;
+}
+
+.w-bpm small {
+  color: var(--muted);
+}
+
+.wait {
+  padding: 60px 0;
+  text-align: center;
+}
+
+/* Franjas de zona detrás de la gráfica del pulso real */
+.zone.ok {
+  fill: var(--ok);
+  opacity: 0.1;
+}
+
+.zone.warn {
+  fill: var(--warn);
+  opacity: 0.1;
+}
+
+.zone.alert {
+  fill: var(--alert);
+  opacity: 0.12;
+}
+
+/* Valor de cada indicador con el color de su estado */
+.row.ok .rv b {
+  color: var(--ok);
+}
+
+.row.warn .rv b {
+  color: var(--warn);
+}
+
+.row.alert .rv b {
+  color: var(--alert);
+}
+
+.realtag.s-ok {
+  color: var(--ok);
+}
+
+.realtag.s-warn {
+  color: var(--warn);
+}
+
+.realtag.s-alert {
+  color: var(--alert);
+}
+
+/* Editor de zonas del pulso */
+.zones {
+  margin-top: 6px;
+  font-size: 12.5px;
+  color: var(--muted);
+}
+
+.zones input {
+  width: 56px;
+  padding: 2px 4px;
+  font-size: 12.5px;
+}
+
+.dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  margin: 0 4px 0 2px;
+  border-radius: 50%;
+}
+
+.dot.ok {
+  background: var(--ok);
+}
+
+.dot.warn {
+  background: var(--warn);
+}
+
+.dot.alert {
+  background: var(--alert);
+}
+
+
+/* Mediciones registradas manualmente */
+#mfields {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.xcs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.xc {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 12px;
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+}
+
+.xc small {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.xc b {
+  font: 600 26px/1.1 var(--mono);
+}
+
+.xc b i {
+  margin-left: 4px;
+  font-size: 13px;
+  font-style: normal;
+  color: var(--muted);
+}
+
+.xc .chip {
+  align-self: flex-start;
+}
+
+.xc .spark {
+  width: 100%;
+  height: 28px;
+}
+
+.meas {
+  max-height: 260px;
+  padding: 0;
+  overflow: auto;
+  list-style: none;
+}
+
+.meas li {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 8px 0;
+  border-top: 1px solid var(--line);
+}
+
+.meas small {
+  display: block;
   color: var(--muted);
 }
 
@@ -781,8 +995,17 @@ main {
   color: var(--ok);
 }
 
-.s-no {
+.s-no,
+.s-alert {
   color: var(--alert);
+}
+
+.s-warn {
+  color: var(--warn);
+}
+
+.chip.hide {
+  display: none;
 }
 
 /* Progreso diario */
@@ -888,6 +1111,11 @@ button {
 
 button:hover {
   border-color: var(--accent);
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
 /* Botón principal */
@@ -997,7 +1225,8 @@ textarea {
 
   .grid2,
   .grid3,
-  .obsg {
+  .obsg,
+  .watch {
     grid-template-columns: 1fr;
   }
 
