@@ -1,7 +1,6 @@
 # AstroCare Mission Health — prototipo (Cosmic Pirates)
 
 Prototipo funcional y DEMOSTRATIVO con dos paneles conectados: **Monitor** y **Recovery**.
-diagnóstico, tratamiento ni conexión con la NASA.
 
 ## Ejecutar en VS Code
 1. Abre la carpeta `astrocare` en VS Code (Archivo > Abrir carpeta).
