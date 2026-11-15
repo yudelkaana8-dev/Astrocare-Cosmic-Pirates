@@ -1,7 +1,7 @@
 # AstroCare Mission Health — prototipo (Cosmic Pirates)
 
 Prototipo funcional y DEMOSTRATIVO con dos paneles conectados: **Monitor** y **Recovery**.
-Datos ficticios; no hay sensores, diagnóstico, tratamiento ni conexión con la NASA.
+diagnóstico, tratamiento ni conexión con la NASA.
 
 ## Ejecutar en VS Code
 1. Abre la carpeta `astrocare` en VS Code (Archivo > Abrir carpeta).
@@ -20,7 +20,7 @@ Datos ficticios; no hay sensores, diagnóstico, tratamiento ni conexión con la 
 - Registro de actividades, progreso diario e historial; todo persiste al recargar.
 - Indicador de modo offline, exportación de informe (.txt) y botón para restablecer la demo.
 - Reglas de estado: ±8 % y ±15 % frente a la referencia personal (demostrativas, sin validez clínica).
-- Gráfica **En vivo (simulada)**: muestras aleatorias cada 1,5 s; se pausa al pasar el cursor.
+- Gráfica **En vivo (Reales)**: con los datos del watch se pausa al pasar el cursor.
 - Recovery: actividades pendientes en rojo y completadas en verde; el progreso del día pasa a verde al completar todo.
 
 ## Conectar un Galaxy Watch 4 (pulso real por Bluetooth)
